@@ -1,34 +1,34 @@
-///Mark: Delegate Pattern Template
-
-// Define the delegate protocol
+///Mark: The Delegate Pattern has 8 steps
+// Step 1: Create Delegate Protocol
 protocol DelegateProtocol {
-  func methodOne(method: String)
+    func delegateAction(action: String)
 }
 
-// Define a class that needs to use a delegate
+// Step 2: Create Boss Class
 class Boss {
-  // Declare a delegate property with a type that conforms to the delegate protocol
+  
+  // Step 3: Create the delegate OBJECT that the boss will call on
   var delegate: DelegateProtocol?
-
-  func bossMethod(action: String) {
-    // Call the delegate's method to perform the delegated task
-      let orderNow = delegate?.methodOne(method: action)
-      
-  }
-}
-// Define a class that implements the delegate protocol
-class Intern: DelegateProtocol {
-    func methodOne(method: String) {
-        print("Intern: How may I help you?: \(method)")
+  // Step 4: Asking the delegate to perform its action for the boss
+    func bossMethod(myBossWants: String) {
+        let property = delegate?.delegateAction(action: myBossWants)
+        //calls for delegate method
     }
 }
 
-// Create an instance of the calculator class and set its delegate
-let boss = Boss()
-let intern = Intern()
-boss.delegate = intern
+// Step 5: Create Intern Class and assign the protocol to it
+class Intern: DelegateProtocol {
+  func delegateAction(action: String) {
+      print(action)
+  }
+}
 
-// Use the calculator to add some numbers
-boss.bossMethod(action: "Boss: Bring me a coffee, pls")
+// Step 6: Object instatiation for the boss object and the intern object
+let bossObject = Boss()
+let internObject = Intern()
 
+// Step 7: establish who will be delegating for the boss
+bossObject.delegate = internObject
 
+// Step 8: boss object uses the delegate methods (this methods are layed out on the DelegateProtocol)
+bossObject.bossMethod(myBossWants: "a coffee")
